@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c72815fe-d999-4c87-960f-8dba832dacf6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DynamicFirehoseSink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DynamicFirehoseSink.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/nike/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/nike/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +127,7 @@
       <updated>1683631577925</updated>
       <workItem from="1683631579515" duration="58203000" />
       <workItem from="1684113358928" duration="206000" />
-      <workItem from="1684114126224" duration="15968000" />
+      <workItem from="1684114126224" duration="19665000" />
     </task>
     <servers />
   </component>

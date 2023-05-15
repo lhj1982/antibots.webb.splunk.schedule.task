@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.firehose.model.PutRecordBatchResponseEntr
 import software.amazon.awssdk.services.firehose.model.Record;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DynamicFirehoseSink extends RichSinkFunction<DataRecord> {
     public static Logger LOG = LoggerFactory.getLogger(DynamicFirehoseSink.class);
@@ -28,7 +29,7 @@ public class DynamicFirehoseSink extends RichSinkFunction<DataRecord> {
                 .region(Region.CN_NORTHWEST_1)
                 .build();
 
-        buffer = new HashMap<>();
+        buffer = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class DynamicFirehoseSink extends RichSinkFunction<DataRecord> {
                         .data(SdkBytes.fromByteArray(value.toByteArray()))
                         .build();
 
-                buffer.putIfAbsent(firehoseStreamName, new ArrayList<>());
+                buffer.computeIfAbsent(firehoseStreamName, k-> new ArrayList<>());
                 buffer.get(firehoseStreamName).add(record);
 
                 if (buffer.get(firehoseStreamName).size() >= BATCH_SIZE) {
