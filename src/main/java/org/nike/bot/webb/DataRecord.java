@@ -2,6 +2,7 @@ package org.nike.bot.webb;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.flink.api.common.serialization.SerializationSchema;
 
 import java.util.List;
 import java.util.Map;
@@ -16,13 +17,19 @@ public class DataRecord {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public byte[] toByteArray() {
-        try {
-            String json = MAPPER.writeValueAsString(this);
-            return json.getBytes();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize DataRecord", e);
+    static class DataRecordsSerializationSchema implements SerializationSchema<DataRecord>
+    {
+        private static final long serialVersionUID = 1L;
+        @Override
+        public byte[] serialize(DataRecord dataRecord)
+        {
+            return dataRecord.toString().getBytes();
         }
+    }
+
+    public static DataRecordsSerializationSchema sinkSerializer()
+    {
+        return new DataRecordsSerializationSchema();
     }
 
     public String getType() {
