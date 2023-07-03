@@ -1,18 +1,16 @@
 package org.nike.bot.webb;
 
-import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
+import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.connector.firehose.sink.KinesisFirehoseSink;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kinesis.FlinkKinesisConsumer;
 import org.apache.flink.streaming.connectors.kinesis.config.ConsumerConfigConstants;
 import org.apache.flink.util.Collector;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import static org.apache.flink.connector.aws.config.AWSConfigConstants.AWS_REGION;
@@ -36,15 +34,15 @@ public class BotWebbFlinkApp {
         Properties sinkProperties = new Properties();
         sinkProperties.setProperty(AWS_REGION, region);
 
-        KinesisFirehoseSink<DataRecord> sinkEdgeKV = KinesisFirehoseSink.<DataRecord>builder()
+        KinesisFirehoseSink<String> sinkEdgeKV = KinesisFirehoseSink.<String>builder()
                 .setFirehoseClientProperties(sinkProperties)
-                .setSerializationSchema(DataRecord.sinkSerializer())
+                .setSerializationSchema(new SimpleStringSchema())
                 .setDeliveryStreamName(EDGEKV_FIREHOUSE)
                 .build();
 
-        KinesisFirehoseSink<DataRecord> sinkFairness = KinesisFirehoseSink.<DataRecord>builder()
+        KinesisFirehoseSink<String> sinkFairness = KinesisFirehoseSink.<String>builder()
                 .setFirehoseClientProperties(sinkProperties)
-                .setSerializationSchema(DataRecord.sinkSerializer())
+                .setSerializationSchema(new SimpleStringSchema())
                 .setDeliveryStreamName(FAIRNESS_FIREHOUSE)
                 .build();
 
@@ -54,21 +52,30 @@ public class BotWebbFlinkApp {
                 .rebalance();
 
 
-        DataStream<DataRecord> edgeKvDs = input.filter((FilterFunction<DataRecord>) dataRecord -> {
+        DataStream<String> edgeKvDs = input.flatMap((DataRecord dataRecord, Collector<String> out)->{
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
                 List<String> destination = dataRecord.getMetadata().get(0).get("destination");
-                return destination.contains(EDGEKV);
-            } else
-                return false;
-        });
+                if (destination.contains(EDGEKV)) out.collect("{" +
+                                                                        "\"type\":\"" + dataRecord.getType() + '\"' +
+                                                                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
+                                                                        ", \"action\":\"" + dataRecord.getAction() + '\"' +
+                                                                        ", \"nameSpace\":\"" + dataRecord.getNameSpace() + '\"' +
+                                                                        '}');
+            }
+        }).returns(Types.STRING);
 
-        DataStream<DataRecord> fairnessDs = input.filter((FilterFunction<DataRecord>) dataRecord -> {
+        DataStream<String> fairnessDs = input.flatMap((DataRecord dataRecord, Collector<String> out) -> {
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
                 List<String> destination = dataRecord.getMetadata().get(0).get("destination");
-                return destination.contains(FAIRNESS);
-            } else
-                return false;
-        });
+                if (destination.contains(FAIRNESS)) out.collect("{" +
+                                                                        "\"type\":\"" + dataRecord.getType() + '\"' +
+                                                                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
+                                                                        ", \"author\":\"" + dataRecord.getAuthor() + '\"' +
+                                                                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
+                                                                        '}');
+            }
+        }).returns(Types.STRING);
+
 
         fairnessDs.sinkTo(sinkFairness);
         edgeKvDs.sinkTo(sinkEdgeKV);

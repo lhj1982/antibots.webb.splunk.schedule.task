@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c72815fe-d999-4c87-960f-8dba832dacf6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DynamicFirehoseSink.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +41,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="false" />
     <option name="myAllFileTypesSelected" value="true" />
@@ -67,6 +74,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/TTopde/Desktop/github/antibots.webb.splunk.writer&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
@@ -130,6 +138,10 @@
       <workItem from="1684113358928" duration="206000" />
       <workItem from="1684114126224" duration="19665000" />
       <workItem from="1684162492700" duration="17825000" />
+      <workItem from="1687251806305" duration="1961000" />
+      <workItem from="1687270082268" duration="8000" />
+      <workItem from="1687270159927" duration="8000" />
+      <workItem from="1687317257087" duration="13635000" />
     </task>
     <servers />
   </component>
