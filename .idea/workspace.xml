@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c72815fe-d999-4c87-960f-8dba832dacf6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/DataRecord.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +23,6 @@
       </list>
     </option>
   </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="false" />
-    <option name="myAllFileTypesSelected" value="true" />
-    <option name="mySelectedFileTypes">
-      <set />
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -46,13 +37,6 @@
       <MavenGeneralSettings>
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="OptimizeOnSaveOptions">
-    <option name="myRunOnSave" value="false" />
-    <option name="myAllFileTypesSelected" value="true" />
-    <option name="mySelectedFileTypes">
-      <set />
     </option>
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
@@ -78,7 +62,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.BotWebbFlinkApp">
+  <component name="RunManager" selected="应用程序.aaa">
     <configuration name="BotWebbFlinkApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.nike.bot.webb.BotWebbFlinkApp" />
       <module name="bot-webb-flink" />
@@ -118,13 +102,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.BotWebbFlinkApp" />
-        <item itemvalue="Application.aaa" />
-        <item itemvalue="Application.DataGenerator" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
