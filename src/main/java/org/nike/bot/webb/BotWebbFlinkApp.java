@@ -73,6 +73,7 @@ public class BotWebbFlinkApp {
                                                                         ", \"value\":\"" + dataRecord.getValue() + '\"' +
                                                                         ", \"author\":\"" + dataRecord.getAuthor() + '\"' +
                                                                         ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
+                                                                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                                                                         '}');
             }
         }).returns(Types.STRING);
