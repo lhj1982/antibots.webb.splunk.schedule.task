@@ -14,6 +14,8 @@ public class DataRecord {
     private String ttl;
     private String action;
     private String nameSpace;
+    private String taskId;
+
     @JsonIgnore
     private List<Map<String, List<String>>> metadata;
 
@@ -86,6 +88,10 @@ public class DataRecord {
         return metadata;
     }
 
+    public String getTaskId(){ return taskId;}
+
+    public void setTaskId(String taskId) { this.taskId = taskId; }
+
     public void setMetadata(List<Map<String, List<String>>> metadata) {
         this.metadata = metadata;
     }
@@ -99,6 +105,7 @@ public class DataRecord {
                 ", \"ttl\":\"" + ttl + '\"' +
                 ", \"action\":\"" + action + '\"' +
                 ", \"nameSpace\":\"" + nameSpace + '\"' +
+                ", \"taskId\":\"" + taskId + '\"' +
                 '}';
     }
 
@@ -115,6 +122,7 @@ public class DataRecord {
         if (ttl != null ? !ttl.equals(that.ttl) : that.ttl != null) return false;
         if (action != null ? !action.equals(that.action) : that.action != null) return false;
         if (nameSpace != null ? !nameSpace.equals(that.nameSpace) : that.nameSpace != null) return false;
+        if (taskId != null ? !taskId.equals(that.taskId) : that.taskId != null) return false;
         return metadata != null ? metadata.equals(that.metadata) : that.metadata == null;
     }
 
@@ -127,6 +135,7 @@ public class DataRecord {
         result = 31 * result + (action != null ? action.hashCode() : 0);
         result = 31 * result + (nameSpace != null ? nameSpace.hashCode() : 0);
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
+        result = 31 * result + (taskId != null ? taskId.hashCode() : 0);
         return result;
     }
 }

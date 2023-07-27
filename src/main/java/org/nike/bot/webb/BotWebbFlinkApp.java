@@ -60,6 +60,7 @@ public class BotWebbFlinkApp {
                                                                         ", \"value\":\"" + dataRecord.getValue() + '\"' +
                                                                         ", \"action\":\"" + dataRecord.getAction() + '\"' +
                                                                         ", \"nameSpace\":\"" + dataRecord.getNameSpace() + '\"' +
+                                                                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                                                                         '}');
             }
         }).returns(Types.STRING);
@@ -72,6 +73,7 @@ public class BotWebbFlinkApp {
                                                                         ", \"value\":\"" + dataRecord.getValue() + '\"' +
                                                                         ", \"author\":\"" + dataRecord.getAuthor() + '\"' +
                                                                         ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
+                                                                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                                                                         '}');
             }
         }).returns(Types.STRING);
