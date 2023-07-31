@@ -60,6 +60,7 @@ public class BotWebbFlinkApp {
                                                                         ", \"value\":\"" + dataRecord.getValue() + '\"' +
                                                                         ", \"action\":\"" + dataRecord.getAction() + '\"' +
                                                                         ", \"nameSpace\":\"" + dataRecord.getNameSpace() + '\"' +
+                                                                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
                                                                         ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                                                                         '}');
             }
