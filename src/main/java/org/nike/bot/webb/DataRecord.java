@@ -17,6 +17,8 @@ public class DataRecord {
     private String nameSpace;
     private String taskId;
 
+    private String ruleId;
+
     @JsonIgnore
     private List<Map<String, List<String>>> metadata;
 
@@ -97,6 +99,10 @@ public class DataRecord {
         this.metadata = metadata;
     }
 
+    public String getRuleId(){return ruleId;}
+
+    public void setRuleId(String ruleId){this.ruleId = ruleId;}
+
     @Override
     public String toString() {
         return "{" +
@@ -107,6 +113,7 @@ public class DataRecord {
                 ", \"action\":\"" + action + '\"' +
                 ", \"nameSpace\":\"" + nameSpace + '\"' +
                 ", \"taskId\":\"" + taskId + '\"' +
+                ", \"ruleId\":\"" + ruleId + '\"' +
                 '}';
     }
 
@@ -124,6 +131,7 @@ public class DataRecord {
         if (action != null ? !action.equals(that.action) : that.action != null) return false;
         if (nameSpace != null ? !nameSpace.equals(that.nameSpace) : that.nameSpace != null) return false;
         if (taskId != null ? !taskId.equals(that.taskId) : that.taskId != null) return false;
+        if (ruleId != null ? !ruleId.equals(that.ruleId) : that.ruleId != null) return false;
         return metadata != null ? metadata.equals(that.metadata) : that.metadata == null;
     }
 
