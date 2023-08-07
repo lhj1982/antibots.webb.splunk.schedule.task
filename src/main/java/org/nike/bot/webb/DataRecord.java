@@ -1,6 +1,5 @@
 package org.nike.bot.webb;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.api.common.serialization.SerializationSchema;
@@ -19,10 +18,7 @@ public class DataRecord {
 
     private String ruleId;
 
-    @JsonIgnore
     private List<Map<String, List<String>>> metadata;
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static class DataRecordsSerializationSchema implements SerializationSchema<DataRecord>
     {
