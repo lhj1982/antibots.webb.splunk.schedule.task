@@ -54,11 +54,12 @@ public class BotWebbFlinkApp {
         DataStream<DataRecord> input = env.addSource(new FlinkKinesisConsumer<>(inputStreamName, new SimpleStringSchema(), inputProperties))
                 .map(data -> jsonParser.readValue(data, DataRecord.class))
                 .name("bot-webb-splunk-kinesis source")
+                .name("Sourcing Data from KDS")
                 .rebalance();
 
         input.keyBy(data -> "")
                 .window(ProcessingTimeSessionWindows.withGap(Time.seconds(30)))
-                .aggregate(new TaskIdLoggerFunction());
+                .aggregate(new TaskIdLoggerFunction()).name("TaskID Logger");
 
         DataStream<String> edgeKvDs = input.flatMap((DataRecord dataRecord, Collector<String> out) -> {
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
@@ -89,8 +90,8 @@ public class BotWebbFlinkApp {
             }
         }).returns(Types.STRING);
 
-        fairnessDs.sinkTo(sinkFairness);
-        edgeKvDs.sinkTo(sinkEdgeKV);
+        fairnessDs.sinkTo(sinkFairness).name("Sink to Fairness");
+        edgeKvDs.sinkTo(sinkEdgeKV).name("Sink to EdgeKV");
 
         env.execute("Kinesis to Flink to Firehose App");
     }
