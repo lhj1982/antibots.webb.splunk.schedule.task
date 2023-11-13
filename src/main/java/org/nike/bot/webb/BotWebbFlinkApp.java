@@ -57,7 +57,7 @@ public class BotWebbFlinkApp {
                 .name("Sourcing Data from KDS")
                 .rebalance();
 
-        input.keyBy(data -> "")
+        input.keyBy(DataRecord::getTaskId)
                 .window(ProcessingTimeSessionWindows.withGap(Time.seconds(30)))
                 .aggregate(new TaskIdLoggerFunction()).name("TaskID Logger");
 
