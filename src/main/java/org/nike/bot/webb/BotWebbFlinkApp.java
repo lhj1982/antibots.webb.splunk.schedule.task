@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.apache.flink.connector.aws.config.AWSConfigConstants.AWS_REGION;
+
 public class BotWebbFlinkApp {
 
     private static final ObjectMapper jsonParser = new ObjectMapper();
@@ -72,6 +73,7 @@ public class BotWebbFlinkApp {
                         ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
                         ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                         ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
+                        ", \"versionId\":\"" + dataRecord.getVersionId() + '\"' +
                         '}');
             }
         }).returns(Types.STRING);
@@ -86,6 +88,7 @@ public class BotWebbFlinkApp {
                         ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
                         ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
                         ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
+                        ", \"versionId\":\"" + dataRecord.getVersionId() + '\"' +
                         '}');
             }
         }).returns(Types.STRING);
