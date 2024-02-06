@@ -6,6 +6,7 @@ import org.apache.flink.api.common.serialization.SerializationSchema;
 
 import java.util.List;
 import java.util.Map;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataRecord {
     private String type;
@@ -18,20 +19,20 @@ public class DataRecord {
 
     private String ruleId;
 
+    private String versionId;
+
     private List<Map<String, List<String>>> metadata;
 
-    static class DataRecordsSerializationSchema implements SerializationSchema<DataRecord>
-    {
+    static class DataRecordsSerializationSchema implements SerializationSchema<DataRecord> {
         private static final long serialVersionUID = 1L;
+
         @Override
-        public byte[] serialize(DataRecord dataRecord)
-        {
+        public byte[] serialize(DataRecord dataRecord) {
             return dataRecord.toString().getBytes();
         }
     }
 
-    public static DataRecordsSerializationSchema sinkSerializer()
-    {
+    public static DataRecordsSerializationSchema sinkSerializer() {
         return new DataRecordsSerializationSchema();
     }
 
@@ -87,17 +88,33 @@ public class DataRecord {
         return metadata;
     }
 
-    public String getTaskId(){ return taskId;}
+    public String getTaskId() {
+        return taskId;
+    }
 
-    public void setTaskId(String taskId) { this.taskId = taskId; }
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public void setMetadata(List<Map<String, List<String>>> metadata) {
         this.metadata = metadata;
     }
 
-    public String getRuleId(){return ruleId;}
+    public String getRuleId() {
+        return ruleId;
+    }
 
-    public void setRuleId(String ruleId){this.ruleId = ruleId;}
+    public void setRuleId(String ruleId) {
+        this.ruleId = ruleId;
+    }
+
+    public String getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
 
     @Override
     public String toString() {
@@ -110,6 +127,7 @@ public class DataRecord {
                 ", \"nameSpace\":\"" + nameSpace + '\"' +
                 ", \"taskId\":\"" + taskId + '\"' +
                 ", \"ruleId\":\"" + ruleId + '\"' +
+                ", \"versionId\":\"" + versionId + '\"' +
                 '}';
     }
 
@@ -128,6 +146,7 @@ public class DataRecord {
         if (nameSpace != null ? !nameSpace.equals(that.nameSpace) : that.nameSpace != null) return false;
         if (taskId != null ? !taskId.equals(that.taskId) : that.taskId != null) return false;
         if (ruleId != null ? !ruleId.equals(that.ruleId) : that.ruleId != null) return false;
+        if (versionId != null ? !versionId.equals(that.versionId) : that.versionId != null) return false;
         return metadata != null ? metadata.equals(that.metadata) : that.metadata == null;
     }
 
@@ -141,6 +160,7 @@ public class DataRecord {
         result = 31 * result + (nameSpace != null ? nameSpace.hashCode() : 0);
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
         result = 31 * result + (taskId != null ? taskId.hashCode() : 0);
+        result = 31 * result + (versionId != null ? versionId.hashCode() : 0);
         return result;
     }
 }

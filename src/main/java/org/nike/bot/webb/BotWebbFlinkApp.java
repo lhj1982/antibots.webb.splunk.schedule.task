@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.apache.flink.connector.aws.config.AWSConfigConstants.AWS_REGION;
+
 public class BotWebbFlinkApp {
 
     private static final ObjectMapper jsonParser = new ObjectMapper();
@@ -52,18 +53,19 @@ public class BotWebbFlinkApp {
                 .rebalance();
 
 
-        DataStream<String> edgeKvDs = input.flatMap((DataRecord dataRecord, Collector<String> out)->{
+        DataStream<String> edgeKvDs = input.flatMap((DataRecord dataRecord, Collector<String> out) -> {
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
                 List<String> destination = dataRecord.getMetadata().get(0).get("destination");
                 if (destination.contains(EDGEKV)) out.collect("{" +
-                                                                        "\"type\":\"" + dataRecord.getType() + '\"' +
-                                                                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
-                                                                        ", \"action\":\"" + dataRecord.getAction() + '\"' +
-                                                                        ", \"nameSpace\":\"" + dataRecord.getNameSpace() + '\"' +
-                                                                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
-                                                                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
-                                                                        ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
-                                                                        '}');
+                        "\"type\":\"" + dataRecord.getType() + '\"' +
+                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
+                        ", \"action\":\"" + dataRecord.getAction() + '\"' +
+                        ", \"nameSpace\":\"" + dataRecord.getNameSpace() + '\"' +
+                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
+                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
+                        ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
+                        ", \"versionId\":\"" + dataRecord.getVersionId() + '\"' +
+                        '}');
             }
         }).returns(Types.STRING);
 
@@ -71,13 +73,14 @@ public class BotWebbFlinkApp {
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
                 List<String> destination = dataRecord.getMetadata().get(0).get("destination");
                 if (destination.contains(FAIRNESS)) out.collect("{" +
-                                                                        "\"type\":\"" + dataRecord.getType() + '\"' +
-                                                                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
-                                                                        ", \"author\":\"" + dataRecord.getAuthor() + '\"' +
-                                                                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
-                                                                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
-                                                                        ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
-                                                                        '}');
+                        "\"type\":\"" + dataRecord.getType() + '\"' +
+                        ", \"value\":\"" + dataRecord.getValue() + '\"' +
+                        ", \"author\":\"" + dataRecord.getAuthor() + '\"' +
+                        ", \"ttl\":\"" + dataRecord.getTtl() + '\"' +
+                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
+                        ", \"ruleId\":\"" + dataRecord.getRuleId() + '\"' +
+                        ", \"versionId\":\"" + dataRecord.getVersionId() + '\"' +
+                        '}');
             }
         }).returns(Types.STRING);
 
