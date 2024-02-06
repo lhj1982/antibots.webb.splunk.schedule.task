@@ -6,9 +6,13 @@ import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.connector.firehose.sink.KinesisFirehoseSink;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.windowing.assigners.ProcessingTimeSessionWindows;
+import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kinesis.FlinkKinesisConsumer;
 import org.apache.flink.streaming.connectors.kinesis.config.ConsumerConfigConstants;
 import org.apache.flink.util.Collector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Properties;
@@ -24,6 +28,7 @@ public class BotWebbFlinkApp {
     private static final String FAIRNESS_FIREHOUSE = "bot-webb-splunk-firehose-fairness";
     private static final String EDGEKV = "edgeKV";
     private static final String FAIRNESS = "fairness";
+    public static Logger LOG = LoggerFactory.getLogger(BotWebbFlinkApp.class);
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -50,8 +55,12 @@ public class BotWebbFlinkApp {
         DataStream<DataRecord> input = env.addSource(new FlinkKinesisConsumer<>(inputStreamName, new SimpleStringSchema(), inputProperties))
                 .map(data -> jsonParser.readValue(data, DataRecord.class))
                 .name("bot-webb-splunk-kinesis source")
+                .name("Sourcing Data from KDS")
                 .rebalance();
 
+        input.keyBy(DataRecord::getTaskId)
+                .window(ProcessingTimeSessionWindows.withGap(Time.seconds(30)))
+                .aggregate(new TaskIdLoggerFunction()).name("TaskID Logger");
 
         DataStream<String> edgeKvDs = input.flatMap((DataRecord dataRecord, Collector<String> out) -> {
             if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
@@ -84,10 +93,8 @@ public class BotWebbFlinkApp {
             }
         }).returns(Types.STRING);
 
-
-        fairnessDs.sinkTo(sinkFairness);
-        edgeKvDs.sinkTo(sinkEdgeKV);
-
+        fairnessDs.sinkTo(sinkFairness).name("Sink to Fairness");
+        edgeKvDs.sinkTo(sinkEdgeKV).name("Sink to EdgeKV");
 
         env.execute("Kinesis to Flink to Firehose App");
     }
