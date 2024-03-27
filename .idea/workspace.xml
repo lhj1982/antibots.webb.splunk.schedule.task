@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c72815fe-d999-4c87-960f-8dba832dacf6" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/nike/bot/webb/BotWebbFlinkApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CODEOWNERS" beforeDir="false" afterPath="$PROJECT_DIR$/CODEOWNERS" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
     "project.structure.last.edited": "SDK",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -165,7 +165,7 @@
       <workItem from="1707271140585" duration="157000" />
       <workItem from="1707271308770" duration="1438000" />
       <workItem from="1707275150446" duration="68000" />
-      <workItem from="1711444058193" duration="1157000" />
+      <workItem from="1711444058193" duration="3281000" />
     </task>
     <servers />
   </component>
