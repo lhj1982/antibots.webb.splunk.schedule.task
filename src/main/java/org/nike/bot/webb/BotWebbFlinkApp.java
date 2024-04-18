@@ -27,9 +27,11 @@ public class BotWebbFlinkApp {
     private static final String EDGEKV_FIREHOUSE = "bot-webb-splunk-firehose-edgekv";
     private static final String FAIRNESS_FIREHOUSE = "bot-webb-splunk-firehose-fairness";
     private static final String ATHENA_FIREHOUSE = "bot-webb-splunk-firehose-athena";
+    private static final String WAFTRAFFICDATA_FIREHOUSE = "bot-webb-splunk-firehose-waftrafficdata";
     private static final String EDGEKV = "edgeKV";
     private static final String FAIRNESS = "fairness";
     private static final String ATHENA = "athena";
+    private static final String WAFTRAFFICDATA = "waftrafficdata";
     public static Logger LOG = LoggerFactory.getLogger(BotWebbFlinkApp.class);
 
     public static void main(String[] args) throws Exception {
@@ -58,6 +60,12 @@ public class BotWebbFlinkApp {
                 .setFirehoseClientProperties(sinkProperties)
                 .setSerializationSchema(new SimpleStringSchema())
                 .setDeliveryStreamName(ATHENA_FIREHOUSE)
+                .build();
+
+        KinesisFirehoseSink<String> sinkWafTraffic = KinesisFirehoseSink.<String>builder()
+                .setFirehoseClientProperties(sinkProperties)
+                .setSerializationSchema(new SimpleStringSchema())
+                .setDeliveryStreamName(WAFTRAFFICDATA_FIREHOUSE)
                 .build();
 
         DataStream<DataRecord> input = env.addSource(new FlinkKinesisConsumer<>(inputStreamName, new SimpleStringSchema(), inputProperties))
@@ -116,9 +124,23 @@ public class BotWebbFlinkApp {
             }
         }).returns(Types.STRING);
 
+        DataStream<String> wafTrafficDs = input.flatMap((DataRecord dataRecord, Collector<String> out) -> {
+            if (dataRecord.getMetadata().get(0) != null && dataRecord.getMetadata().get(0).size() > 0) {
+                List<String> destination = dataRecord.getMetadata().get(0).get("destination");
+                if (destination.contains(WAFTRAFFICDATA)) out.collect("{" +
+                        "\"type\":\"" + dataRecord.getType() + '\"' +
+                        ", \"timePeriod\":\"" + dataRecord.getAuthor() + '\"' +
+                        ", \"launchId\":\"" + dataRecord.getValue() + '\"' +
+                        ", \"count\":\"" + dataRecord.getTtl() + '\"' +
+                        ", \"taskId\":\"" + dataRecord.getTaskId() + '\"' +
+                        '}');
+            }
+        }).returns(Types.STRING);
+
         fairnessDs.sinkTo(sinkFairness).name("Sink to Fairness");
         edgeKvDs.sinkTo(sinkEdgeKV).name("Sink to EdgeKV");
         athenaDs.sinkTo(sinkAthena).name("Sink to Athena");
+        wafTrafficDs.sinkTo(sinkWafTraffic).name("Sink to WafTraffic");
 
         env.execute("Kinesis to Flink to Firehose App");
     }
